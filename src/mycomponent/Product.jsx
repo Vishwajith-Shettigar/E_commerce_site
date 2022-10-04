@@ -82,17 +82,18 @@ function Product({Item}) {
 
 function productClicked(id)
 {
+  
   setProductId("productid",id);
   
   navigate("/product")
-
+  
 }
 
-    function addtocart(id)
+    function addtocart(id,color,size,price,img,title)
     {
     
-     
-           if(jwtToken.user=='undefined')
+    
+           if(jwtToken.user===undefined)
            {
             window.alert("Login to proceed")
             navigate("/login")
@@ -102,7 +103,13 @@ function productClicked(id)
               userid:jwtToken.userId.toString(),
               products:[{
                   productid:id,
-                  quantity:1
+                  title:title,
+                  quantity:1,
+                  color:color,
+                  size:size,
+                  price:price,
+                  img:img
+
               }],
 
             },{
@@ -110,7 +117,8 @@ function productClicked(id)
                 token:"Barear "+jwtToken.user
               }
             }
-            ).then(res=>console.log(res))
+            ).then(res=>console.log(res)
+            )
            }
     }
   return (
@@ -119,7 +127,7 @@ function productClicked(id)
 <Circle/>
 <Image src={Item.img}/>
 <Info>
-  <Icon onClick={()=>addtocart(Item._id)}>
+  <Icon onClick={()=>addtocart(Item._id,Item.color[0],Item.size[0],Item.price,Item.img,Item.title)}>
 <ShoppingCartOutlinedIcon/>
   </Icon>
   <Icon>
