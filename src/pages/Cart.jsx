@@ -3,13 +3,14 @@ import Announcement from '../mycomponent/Announcement'
 import styled from 'styled-components'
 import Navbar from '../mycomponent/Navbar'
 import Footer from '../mycomponent/Footer'
-
+import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { globalinfo } from '../App'
 import  {Add, Remove } from '@material-ui/icons'
 import { useState } from 'react'
 import { mobile } from '../responsive';
 import  Axios from 'axios'
+import { Refresh } from '@mui/icons-material'
 
 const Container=styled.div`
     
@@ -182,28 +183,94 @@ font-weight: 600;
 
 function Cart() {
 
+    const navigate=useNavigate()
     const {jwtToken}=useContext(globalinfo);
     const [cart,setCart]=useState()
-    console.log(jwtToken.userId);
+    const [tempre,settempre]=useState("none");
+    const [total,setTotal]=useState()
+   const {setCartcount}=useContext(globalinfo)
 useEffect(()=>{
-    console.log("lol")
+
        Axios.get(`http://localhost:5000/api/cart/find/${jwtToken.userId}`,{
         headers:{
             token:"Barear "+jwtToken.user
           }
        })
         .then((res)=>{
-            // console.log(res.data[0].products[0]);
+            // console.log(res.data);
+          
             setCart(res.data)
             
-          
          
             
         })
-},[])
+},[tempre])
      
+useEffect(()=>{
+    if(cart){
+    let t=0;
+    cart.map((item)=>(
+        t+=(item.products[0].price*item.products[0].quantity)
+      ))
+    
+      setTotal(t);
+    }
+},[cart],[])
+
+function changeQty(aorm,doc_id,qty,productid,title,color,size,price,img)
+{
+    if(aorm==="add"){
+        qty++;
+    }
+    else{
+        qty--;
+    }
+    
+    
+    console.log(productid,title,color,size,price,img)
+    Axios.put(`http://localhost:5000/api/cart/${jwtToken.userId}`,{
+
+        _id:doc_id,
+        userid:jwtToken.userId,
+
+        products:[
+       { 
+        
+      
+        productid:productid,
+         title:"lol",
+         quantity:qty,
+       
+        color:color,
+        size:size,
+        price:price,
+        img:img
+}
+        ]
+
+    },{
+        headers:{
+            token:"Barear "+jwtToken.user
+          }
+       })
+        .then((res)=>{
+            // console.log(res.data);
+            
+            
+            settempre(Math.random())
+         
+            
+        })
+
+}
+
+function minusQty(productId)
+{
+    console.log(productId);
+}
 if(cart){
- console.log(cart.length)
+ 
+setCartcount(cart.length)
     
   return (
     <Container>
@@ -213,7 +280,9 @@ if(cart){
 <Title>Cart</Title>
 <Top>
 
-    <TopButton>Continue Shopping</TopButton>
+    <TopButton onClick={()=>{
+        navigate("/shop")
+    }}>Continue Shopping</TopButton>
     <TopTexts>
         <TopText>
             Shopping Bag(2)
@@ -243,9 +312,9 @@ cart.map((Item)=>(
     </ProductDetail>
     <PriceDetail>
        <ProductAmountContainer>
-        <Add/>
+        <Add onClick={()=>changeQty("add",Item._id,Item.products[0].quantity,Item.products[0].productid,Item.products[0].title,Item.products[0].color,Item.products[0].size,Item.products[0].price,Item.products[0].img)}/>
         <ProductAmount>{Item.products[0].quantity}</ProductAmount>
-        <Remove/>
+        <Remove onClick={()=>changeQty("minus",Item._id,Item.products[0].quantity,Item.products[0].productid,Item.products[0].title,Item.products[0].color,Item.products[0].size,Item.products[0].price,Item.products[0].img)}/>
        </ProductAmountContainer>
 
        <ProductPrice>${Item.products[0].price}</ProductPrice>
@@ -268,25 +337,25 @@ cart.map((Item)=>(
 <SummaryItem>
 
     <SummaryItemText>Subtotal</SummaryItemText>
-    <SummaryItemPrice>$40</SummaryItemPrice>
+    <SummaryItemPrice>${total}</SummaryItemPrice>
 
 </SummaryItem>
 <SummaryItem>
 
     <SummaryItemText>Estimated Shipping</SummaryItemText>
-    <SummaryItemPrice>$20</SummaryItemPrice>
+    <SummaryItemPrice>$0</SummaryItemPrice>
 
 </SummaryItem>
 <SummaryItem>
 
     <SummaryItemText>Discount</SummaryItemText>
-    <SummaryItemPrice>$-20</SummaryItemPrice>
+    <SummaryItemPrice>${0}</SummaryItemPrice>
 
 </SummaryItem>
 <SummaryItem type="total">
 
     <SummaryItemText >Total</SummaryItemText>
-    <SummaryItemPrice>$40</SummaryItemPrice>
+    <SummaryItemPrice>${total}</SummaryItemPrice>
 
 </SummaryItem>
 <Button>Checkout Now</Button>

@@ -19,6 +19,7 @@ import {
 } from "react-router-dom";
 import { useState } from 'react';
 import { Axios } from 'axios';
+import { useEffect } from 'react';
 export const globalinfo=createContext()
 function App() {
 
@@ -28,13 +29,18 @@ function App() {
   const [jwtToken, setJwtToken, removeCookie] = useCookies(["user","userId"]);
   const [lol,setlol,removellol]=useState("mome");
   const [productId,setProductId]=useCookies("");
+  const [cartCount,setCartcount]=useState();
 
-console.log(jwtToken.userId)
+console.log(cartCount)
+
+
+
+
 
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <globalinfo.Provider value={{productId:productId,setProductId:setProductId, jwtToken:jwtToken,username:username,userId:userId ,lol:lol,setJwtToken:setJwtToken,setUsername:setUsername,setUserid:setUserid}}>
+      <globalinfo.Provider value={{cartCount:cartCount,setCartcount:setCartcount,productId:productId,setProductId:setProductId, jwtToken:jwtToken,username:username,userId:userId ,lol:lol,setJwtToken:setJwtToken,setUsername:setUsername,setUserid:setUserid}}>
    <Routes>
 <Route path="/" element={ 
 <><Home/></>}></Route>

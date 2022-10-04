@@ -6,6 +6,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { grey } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { globalinfo } from '../App';
  
  import { mobile } from '../responsive';
  const Container =styled.div`
@@ -75,6 +77,7 @@ ${mobile({marginLeft:"6px"})};
 
 function Navbar() {
    const navigate=useNavigate()
+   const {cartCount}=useContext(globalinfo)
 
   return (
     <Container>
@@ -95,7 +98,7 @@ function Navbar() {
         <MenuItem onClick={()=>navigate("/Register")}>Register</MenuItem>
         <MenuItem onClick={ ()=>navigate("/Login")}>Login</MenuItem>
         <MenuItem>
-        <Badge badgeContent={4} color="primary" onClick={()=>navigate("/cart")}>
+        <Badge badgeContent={cartCount} color="primary" onClick={()=>navigate("/cart")}>
        <ShoppingCartOutlinedIcon />
     </Badge>
         </MenuItem>
