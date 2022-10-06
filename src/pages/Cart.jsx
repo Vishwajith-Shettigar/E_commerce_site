@@ -185,10 +185,21 @@ function Cart() {
 
     const navigate=useNavigate()
     const {jwtToken}=useContext(globalinfo);
-    const [cart,setCart]=useState()
+    
+        const {cart,setCart}=useContext(globalinfo)
     const [tempre,settempre]=useState("none");
-    const [total,setTotal]=useState()
+    const {total,setTotal}=useContext(globalinfo)
    const {setCartcount}=useContext(globalinfo)
+
+
+function checkOut()
+
+{
+    console.log(cart)
+    navigate("/payment");
+
+
+}
 useEffect(()=>{
 
        Axios.get(`http://localhost:5000/api/cart/find/${jwtToken.userId}`,{
@@ -238,7 +249,7 @@ function changeQty(aorm,doc_id,qty,productid,title,color,size,price,img)
         
       
         productid:productid,
-         title:"lol",
+         title:title,
          quantity:qty,
        
         color:color,
@@ -358,7 +369,7 @@ cart.map((Item)=>(
     <SummaryItemPrice>${total}</SummaryItemPrice>
 
 </SummaryItem>
-<Button>Checkout Now</Button>
+<Button onClick={checkOut}>Checkout Now</Button>
 </Summary>
 
 </Bottom>
