@@ -184,6 +184,7 @@ font-weight: 600;
 function Cart() {
 
     const navigate=useNavigate()
+
     const {jwtToken}=useContext(globalinfo);
     
         const {cart,setCart}=useContext(globalinfo)
@@ -191,6 +192,15 @@ function Cart() {
     const {total,setTotal}=useContext(globalinfo)
    const {setCartcount}=useContext(globalinfo)
 
+
+useEffect(()=>{
+    if(!jwtToken.user)
+    {
+        // window.alert("Login");
+        navigate("/")
+        navigate("/login")
+    }
+},[])
 
 function checkOut()
 
@@ -201,6 +211,8 @@ function checkOut()
 
 }
 useEffect(()=>{
+
+
 
        Axios.get(`http://localhost:5000/api/cart/find/${jwtToken.userId}`,{
         headers:{
@@ -279,7 +291,8 @@ function minusQty(productId)
 {
     console.log(productId);
 }
-if(cart){
+
+if(cart ){
  
 setCartcount(cart.length)
     
