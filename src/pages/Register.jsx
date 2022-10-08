@@ -95,7 +95,7 @@ function Register() {
       console.log("isndie")
 
       
-      Axios.post("http://localhost:5000/api/auth/Register",
+      Axios.post("https://vishecomapi.herokuapp.com/api/auth/Register",
       {
         username:username,
         email:email,

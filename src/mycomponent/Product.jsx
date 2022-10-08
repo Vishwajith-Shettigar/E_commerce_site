@@ -99,7 +99,7 @@ function productClicked(id)
             navigate("/login")
            }else{
             // console.log(userId)
-            Axios.post("http://localhost:5000/api/cart",{
+            Axios.post("https://vishecomapi.herokuapp.com/api/cart",{
               userid:jwtToken.userId.toString(),
               products:[{
                   productid:id,

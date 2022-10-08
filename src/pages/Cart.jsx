@@ -214,7 +214,7 @@ useEffect(()=>{
 
 
 
-       Axios.get(`http://localhost:5000/api/cart/find/${jwtToken.userId}`,{
+       Axios.get(`https://vishecomapi.herokuapp.com/api/cart/find/${jwtToken.userId}`,{
         headers:{
             token:"Barear "+jwtToken.user
           }
@@ -251,7 +251,7 @@ function changeQty(aorm,doc_id,qty,productid,title,color,size,price,img)
     
     
     console.log(productid,title,color,size,price,img)
-    Axios.put(`http://localhost:5000/api/cart/${jwtToken.userId}`,{
+    Axios.put(`https://vishecomapi.herokuapp.com/api/cart/${jwtToken.userId}`,{
 
         _id:doc_id,
         userid:jwtToken.userId,
@@ -277,7 +277,7 @@ function changeQty(aorm,doc_id,qty,productid,title,color,size,price,img)
           }
        })
         .then((res)=>{
-            // console.log(res.data);
+            console.log(res);
             
             
             settempre(Math.random())

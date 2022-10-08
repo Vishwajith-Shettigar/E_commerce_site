@@ -171,7 +171,7 @@ function Payment() {
 // },[stripeToken])
 const saveOrder=()=>{
         console.log(cart,total)
-        Axios.post("http://localhost:5000/api/orders",{
+        Axios.post("https://vishecomapi.herokuapp.com/api/orders",{
 
   userid:jwtToken.userId,
 
@@ -211,7 +211,7 @@ const initPayment=(data)=>{
     order_id:data.id,
     handler:async (response)=>{
         try{
-            const verifyUrl="http://localhost:5000/api/checkout/verify";
+            const verifyUrl="https://vishecomapi.herokuapp.com/api/checkout/verify";
             const {data}=await Axios.post(verifyUrl,response);
             console.log(data)
             saveOrder()
@@ -233,7 +233,7 @@ rzp1.open();
 }
 const  pay=async()=>{
 try{
-    const orderUrl="http://localhost:5000/api/checkout/payment";
+    const orderUrl="https://vishecomapi.herokuapp.com/api/checkout/payment";
     const data= await Axios.post(orderUrl,{amount:parseInt(total,10)});
     console.log(data);
     initPayment(data.data);

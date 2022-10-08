@@ -19,7 +19,7 @@ function Products({category,size,sort}) {
 
 console.log(category,size,sort)
   useEffect(()=>{
-Axios.get(`http://localhost:5000/api/products?category=${category}&size=${size}&sort=${sort}`)
+Axios.get(`https://vishecomapi.herokuapp.com/api/products?category=${category}&size=${size}&sort=${sort}`)
   .then(res=>{
     
     console.log(res.data);

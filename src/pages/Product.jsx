@@ -143,7 +143,7 @@ function Product() {
 
 
     useLayoutEffect(() => {
-        Axios.get(`http://localhost:5000/api/products/find/${productId.productid}`)
+        Axios.get(`https://vishecomapi.herokuapp.com/api/products/find/${productId.productid}`)
             .then(res => {
 
 
@@ -163,7 +163,7 @@ function Product() {
             navigate("/login")
            }else{
             // console.log(userId)
-            Axios.post("http://localhost:5000/api/cart",{
+            Axios.post("https://vishecomapi.herokuapp.com/api/cart",{
               userid:jwtToken.userId.toString(),
               products:[{
                   productid:productId.productid,
