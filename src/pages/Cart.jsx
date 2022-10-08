@@ -94,9 +94,13 @@ justify-content: space-around;
 `
 const ProductName=styled.span`
 padding-bottom:12px;
+${mobile({fontSize:"15px"})}
 `
 const ProductId=styled.span`
-padding-bottom:12px;`
+padding-bottom:12px;
+${mobile({fontSize:"10px"})}
+
+`
 const ProductColor=styled.div`
 width: 20px;
 height: 20px;

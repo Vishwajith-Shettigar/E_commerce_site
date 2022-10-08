@@ -8,8 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { useElements,useStripe,CardElement } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import useRazorpay from "react-razorpay";
-
+import { mobile } from '../responsive';
 import Axios from 'axios';
+import { height } from '@mui/system';
 // import { Navigate } from 'react-router-dom';
 const Container= styled.div`
     display: flex;
@@ -19,6 +20,15 @@ flex-direction:column ;
     width: 100%;
     height: 100vh;
     background-color: #5b5956;
+`
+const Block= styled.div`
+    
+    width: 60%;
+    padding: 30px;
+    
+    background-color: #ffffff;
+    ${mobile({width:"80%", height:"100%"})}
+
 `
 const Title=styled.h1`
 padding-top: 10px;
@@ -31,6 +41,7 @@ const Input=styled.input`
 padding: 10px;
 width: 40%;
 margin:10px;
+${mobile({width:"95%"})}
 `
 const Button= styled.button`
 width: 200px;
@@ -45,14 +56,7 @@ color: white;
 
 `
 
-const Block= styled.div`
-    
-    width: 60%;
-    padding: 30px;
-    
-    background-color: #ffffff;
 
-`
 // const cardCont=styled.div`
 //     width: 30em;
 //     background-color: black;
