@@ -243,10 +243,10 @@ useEffect(()=>{
 function changeQty(aorm,doc_id,qty,productid,title,color,size,price,img)
 {
     if(aorm==="add"){
-        qty++;
+        qty+=1;
     }
     else{
-        qty--;
+        qty-=1;
     }
     
     
